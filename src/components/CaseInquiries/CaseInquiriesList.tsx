@@ -26,6 +26,7 @@ const CaseInquiriesList = async ({ caseInquiries }: PropsType) => {
           <th>Phone/email</th>
           <th>Inquiry</th>
           <th>Importance</th>
+          <th>Flag</th>
           <th>Notes</th>
         </tr>
       </thead>

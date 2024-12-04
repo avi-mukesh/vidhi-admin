@@ -24,8 +24,8 @@ const StudentCommentsList = async ({ studentComments }: PropsType) => {
       <thead>
         <tr>
           <th>Text</th>
-          <th>Notes</th>
           <th>Flag</th>
+          <th>Notes</th>
         </tr>
       </thead>
       <tbody>
