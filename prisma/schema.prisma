@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CaseInquiryFlag {
+  id            String        @id @default(cuid())
+  caseInquiries CaseInquiry[]
+}
+
+model CaseInquiry {
+  id           String           @id @default(cuid())
+  name         String
+  phoneOrEmail String
+  inquiry      String
+  createdAt    DateTime         @default(now())
+  flag         CaseInquiryFlag? @relation(fields: [flagId], references: [id])
+  flagId       String?
+  importance   Importance       @relation(fields: [importanceId], references: [id])
+  importanceId String           @default("MODERATE")
+  notes        String?
+}
+
+model Importance {
+  id            String        @id @default(cuid())
+  caseInquiries CaseInquiry[]
+}
+
+model StudentCommentFlag {
+  id              String           @id @default(cuid())
+  studentComments StudentComment[]
+}
+
+model StudentComment {
+  id        String              @id @default(cuid())
+  text      String
+  createdAt DateTime            @default(now())
+  flag      StudentCommentFlag? @relation(fields: [flagId], references: [id])
+  flagId    String?
+  notes     String?
+}
