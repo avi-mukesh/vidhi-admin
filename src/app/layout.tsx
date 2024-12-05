@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SignoutButton from "@/components/SignoutButton";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,15 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <h1>Vidhi Saharaa Admin Portal</h1>
-        {userObj && <SignoutButton />}
+        {userObj && (
+          <>
+            <SignoutButton />
+            <Link href="/">Home</Link>
+            <Link href="/case-inquiries">Case Inquiries</Link>
+            <Link href="/student-comments">Student Comments</Link>
+            <Link href="/discussion">Discussions</Link>
+          </>
+        )}
         <Toaster position="bottom-right" />
         {children}
       </body>
