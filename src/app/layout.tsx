@@ -37,15 +37,17 @@ export default async function RootLayout({
       >
         <h1>Vidhi Saharaa Admin Portal</h1>
         {userObj && (
-          <>
-            <SignoutButton />
-            <Link href="/">Home</Link>
-            <Link href="/case-inquiries">Case Inquiries</Link>
-            <Link href="/student-comments">Student Comments</Link>
-            <Link href="/discussion">Discussions</Link>
-          </>
+          <nav className="p-1">
+            <ul className="flex gap-4">
+              <Link href="/">Home</Link>
+              <Link href="/case-inquiries">Case Inquiries</Link>
+              <Link href="/student-comments">Student Comments</Link>
+              <Link href="/discussion">Discussions</Link>
+              <SignoutButton />
+            </ul>
+          </nav>
         )}
-        <Toaster position="bottom-right" />
+        <Toaster position="top-center" />
         {children}
       </body>
     </html>

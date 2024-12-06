@@ -6,22 +6,25 @@ import { getImportances } from "@/lib/data";
 import { getCaseInquiryFlags } from "@/lib/case-inquiries/data";
 import CaseInquiryFlagSelect from "./CaseInquiryFlagSelect";
 import {
-  CaseInquiryFlagColours,
+  // CaseInquiryFlagClassColours,
   CaseInquiryFlagType,
 } from "@/utils/flagColours";
+import clsx from "clsx";
 
 type PropsType = {
   caseInquiries: CaseInquiry[];
 };
+
+// const tdClass = "p-1 border";
 
 const CaseInquiriesList = async ({ caseInquiries }: PropsType) => {
   const importances = await getImportances();
   const caseInquiryFlags = await getCaseInquiryFlags();
 
   return (
-    <table>
+    <table className="mx-auto">
       <thead>
-        <tr>
+        <tr className="border-2">
           <th>Name</th>
           <th>Phone/email</th>
           <th>Inquiry</th>
@@ -32,16 +35,37 @@ const CaseInquiriesList = async ({ caseInquiries }: PropsType) => {
       </thead>
       <tbody>
         {caseInquiries.map((caseInquiry) => {
-          let rowClass = "";
           const flagId = caseInquiry.flagId as CaseInquiryFlagType;
-          if (caseInquiry.flagId) {
-            const colour = CaseInquiryFlagColours[flagId];
-            rowClass = `bg-${colour}-300`;
+
+          let bgClass = "";
+          switch (flagId) {
+            case "COMPLETED":
+              bgClass = "bg-green-300";
+              break;
+            case "DEAD":
+              bgClass = "bg-red-300";
+              break;
+            case "FORWARDED_INSIDE":
+              bgClass = "bg-pink-300";
+              break;
+            case "FORWARDED_OUTSIDE":
+              bgClass = "bg-blue-300";
+              break;
+            case "NEEDS_MONITORING":
+              bgClass = "bg-orange-300";
+              break;
+            case "REVIEWED":
+              bgClass = "bg-purple-300";
+              break;
+            default:
+              bgClass = "bg-gray-300";
           }
-          rowClass = `${rowClass} p-4`;
 
           return (
-            <tr key={caseInquiry.id} className={rowClass}>
+            <tr
+              key={caseInquiry.id}
+              className={clsx(`border-1 border-slate-200 ${bgClass}`)}
+            >
               <td>{caseInquiry.name}</td>
               <td>{caseInquiry.phoneOrEmail}</td>
               <td>{caseInquiry.inquiry}</td>

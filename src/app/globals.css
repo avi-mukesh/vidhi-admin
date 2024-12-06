@@ -19,3 +19,9 @@ body {
   /* background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
 }
+
+th,
+td {
+  border: 2px solid #8e8e8e;
+  padding: 1rem;
+}

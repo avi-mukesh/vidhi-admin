@@ -4,7 +4,7 @@ import StudentCommentNotes from "./StudentCommentNotes";
 import { getStudentCommentFlags } from "@/lib/student-comments/data";
 import StudentCommentFlagSelect from "./StudentCommentFlagSelect";
 import {
-  StudentCommentFlagColours,
+  // StudentCommentFlagColours,
   StudentCommentFlagType,
 } from "@/utils/flagColours";
 
@@ -20,9 +20,9 @@ const StudentCommentsList = async ({ studentComments }: PropsType) => {
   }
 
   return (
-    <table>
+    <table className="mx-auto">
       <thead>
-        <tr>
+        <tr className="border-2">
           <th>Text</th>
           <th>Flag</th>
           <th>Notes</th>
@@ -30,16 +30,31 @@ const StudentCommentsList = async ({ studentComments }: PropsType) => {
       </thead>
       <tbody>
         {studentComments.map((studentComment) => {
-          let rowClass = "";
           const flagId = studentComment.flagId as StudentCommentFlagType;
-          if (studentComment.flagId) {
-            const colour = StudentCommentFlagColours[flagId];
-            rowClass = `bg-${colour}-300`;
+
+          let bgClass = "";
+          switch (flagId) {
+            case "MORE_INFORMATION":
+              bgClass = "bg-blue-300";
+              break;
+            case "DEAD":
+              bgClass = "bg-red-300";
+              break;
+            case "RECRUITED":
+              bgClass = "bg-pink-300";
+              break;
+            case "NEEDS_MONITORING":
+              bgClass = "bg-orange-300";
+              break;
+            case "REVIEWED":
+              bgClass = "bg-purple-300";
+              break;
+            default:
+              bgClass = "bg-gray-300";
           }
-          rowClass = `${rowClass} p-4`;
 
           return (
-            <tr key={studentComment.id} className={rowClass}>
+            <tr key={studentComment.id} className={bgClass}>
               <td>{studentComment.text}</td>
               <td>
                 <StudentCommentFlagSelect

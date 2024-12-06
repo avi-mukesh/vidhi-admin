@@ -24,7 +24,7 @@ const Search = () => {
       <label htmlFor="search">Search:</label>
       <input
         id="search"
-        className="p-1 border-slate-900 text-slate-800 outline-2"
+        className="p-1 bg-gray-200 border-slate-900 text-slate-800 outline-2"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("query")?.toString()}
       />
